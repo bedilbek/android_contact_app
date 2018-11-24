@@ -53,7 +53,7 @@ public static class ContactDetailsFragment extends Fragment {
 
         TextView firstNameTextView = new TextView(getActivity());
         firstNameTextView.setId(R.id.firstNameTextViewId);
-        firstNameTextView.setText("First Name"); // we can set text using index number
+        firstNameTextView.setText(""); // we can set text using index number
         firstNameTextView.setTextSize(20);
         firstNameTextView.setPadding(padding, padding, padding, padding);
         firstNameTextView.setGravity(Gravity.CENTER);
