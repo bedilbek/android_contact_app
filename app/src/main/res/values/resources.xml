@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="userImageViewId" type="id" />
+    <item name="firstNameTextViewId" type="id" />
+    <item name="lastNameTextViewId" type="id" />
+    <item name="contactNumberTextViewId" type="id" />
+</resources>
