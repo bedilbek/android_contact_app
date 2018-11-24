@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public static class ContactDetailsFragment extends Fragment {
+public class ContactDetailsFragment extends Fragment {
 
     public static ContactDetailsFragment newInstance(int index) {
         ContactDetailsFragment f = new ContactDetailsFragment();
