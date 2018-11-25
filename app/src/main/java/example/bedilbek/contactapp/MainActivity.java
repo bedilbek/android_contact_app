@@ -15,13 +15,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentManager manager = getSupportFragmentManager();
-        Contact contact = new Contact("asdsa", "catwoman.png", "sadsad", "asdsad", 12312223);
-        ArrayList<Contact> contacts = new ArrayList<>();
-        contacts.add(contact);
+        ArrayList<Contact> contacts = initContacts();
         ContactListFragment fragment = ContactListFragment.constructor(contacts);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(fragment, "hello");
+        transaction.add(R.id.menu, fragment, "hello");
         transaction.commit();
+    }
 
+
+    private ArrayList<Contact> initContacts() {
+        ArrayList<Contact> contacts = new ArrayList<>();
+        contacts.add(new Contact("123", "catwoman", "Cat", "Woman", 12312223));
+        contacts.add(new Contact("124", "batman", "Bat", "Man", 52315823));
+//        TODO: add new contacts as given above, try to write images that are available in drawable folder
+
+        return contacts;
     }
 }

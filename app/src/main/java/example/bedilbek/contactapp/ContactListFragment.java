@@ -36,15 +36,14 @@ public class ContactListFragment extends ListFragment implements AdapterView.OnI
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_contact_list, container, false);
-        contacts = (ArrayList<Contact>) getArguments().getSerializable(CONTACTS_BUNDLE_ARGUMENT);
-        return view;
+        return  inflater.inflate(R.layout.fragment_contact_list, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setListAdapter(new ContactListAdapter(getActivity(), contacts));
+        contacts = (ArrayList<Contact>) getArguments().getSerializable(CONTACTS_BUNDLE_ARGUMENT);
+        setListAdapter(new ContactListAdapter(getContext(), contacts));
         getListView().setOnItemClickListener(this);
     }
 
