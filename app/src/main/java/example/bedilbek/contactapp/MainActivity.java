@@ -1,28 +1,58 @@
 package example.bedilbek.contactapp;
 
-import android.support.v4.app.Fragment;
+import android.content.res.Configuration;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ContactListFragment.OnContactSelectedListener {
     FragmentManager manager;
+    LinearLayout parent;
+    LinearLayout menu;
+    LinearLayout content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
         manager = getSupportFragmentManager();
         ArrayList<Contact> contacts = initContacts();
         ContactListFragment fragment = ContactListFragment.constructor(contacts);
         fragment.contactSelectedListener = this;
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.menu, fragment, "hello");
+        configure(getResources().getConfiguration().orientation);
+        transaction.replace(R.id.contact_list_layout, fragment, "hello");
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    private void init() {
+        parent = findViewById(R.id.parent);
+        menu = findViewById(R.id.contact_list_layout);
+        content = findViewById(R.id.contact_detail_layout);
+    }
+
+    private void configure(int ORIENTATION) {
+        if (ORIENTATION == Configuration.ORIENTATION_PORTRAIT) {
+            parent.setWeightSum(1);
+            LinearLayout.LayoutParams menuParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
+            menu.setLayoutParams(menuParams);
+            LinearLayout.LayoutParams contentParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            content.setLayoutParams(contentParams);
+        } else {
+            parent.setWeightSum(2);
+            LinearLayout.LayoutParams menuParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            menu.setLayoutParams(menuParams);
+            LinearLayout.LayoutParams contentParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            content.setLayoutParams(contentParams);
+        }
+    }
 
     private ArrayList<Contact> initContacts() {
         ArrayList<Contact> contacts = new ArrayList<>();
@@ -44,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
     public void onObjectSelected(Contact contact) {
         ContactDetailsFragment detailsFragment = ContactDetailsFragment.constructor(contact);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.menu, detailsFragment);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            transaction.replace(R.id.contact_detail_layout, detailsFragment);
+        else transaction.replace(R.id.contact_list_layout, detailsFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

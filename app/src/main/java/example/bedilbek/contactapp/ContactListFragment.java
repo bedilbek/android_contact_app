@@ -51,7 +51,7 @@ public class ContactListFragment extends ListFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getContext(), contacts.get(position).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), contacts.get(position).toString(), Toast.LENGTH_SHORT).show();
         contactSelectedListener.onObjectSelected(contacts.get(position));
     }
 
