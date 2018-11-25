@@ -8,15 +8,16 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements ContactListFragment.OnContactSelectedListener {
+    FragmentManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FragmentManager manager = getSupportFragmentManager();
+        manager = getSupportFragmentManager();
         ArrayList<Contact> contacts = initContacts();
         ContactListFragment fragment = ContactListFragment.constructor(contacts);
+        fragment.contactSelectedListener = this;
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.menu, fragment, "hello");
         transaction.commit();
@@ -37,5 +38,14 @@ public class MainActivity extends AppCompatActivity {
         contacts.add(new Contact("132", "zatannawoman", "Zatanna", "Unknown", 34377823));
         contacts.add(new Contact("133", "wonderwoman", "Diana", "Princess", 46368790));
         return contacts;
+    }
+
+    @Override
+    public void onObjectSelected(Contact contact) {
+        ContactDetailsFragment detailsFragment = ContactDetailsFragment.constructor(contact);
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.menu, detailsFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

@@ -1,6 +1,7 @@
 package example.bedilbek.contactapp;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class ContactListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+    public OnContactSelectedListener contactSelectedListener;
 
     private ArrayList<Contact> contacts;
     private static final String CONTACTS_BUNDLE_ARGUMENT = "contacts";
@@ -50,5 +52,22 @@ public class ContactListFragment extends ListFragment implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getContext(), contacts.get(position).toString(), Toast.LENGTH_SHORT).show();
+        contactSelectedListener.onObjectSelected(contacts.get(position));
+    }
+
+    public interface OnContactSelectedListener {
+        public void onObjectSelected(Contact contact);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            contactSelectedListener = (OnContactSelectedListener) context;
+        }
+        catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement OnContactSelectedListener");
+        }
     }
 }

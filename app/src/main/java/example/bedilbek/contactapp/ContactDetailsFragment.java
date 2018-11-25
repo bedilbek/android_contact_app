@@ -37,10 +37,10 @@ public class ContactDetailsFragment extends Fragment {
         if (container == null) {
             return null;
         }
-        init();
         // user information should be putted here
-        return inflater.inflate(R.layout.contact_detail_fragment, container, false);
-
+        View view = inflater.inflate(R.layout.contact_detail_fragment, container, false);
+        init(view);
+        return view;
     }
 
     @Override
@@ -53,10 +53,10 @@ public class ContactDetailsFragment extends Fragment {
         contactNumberTextView.setText(String.valueOf(contact.getContact_number()));
     }
 
-    public void init() {
-        userImageView = getView().findViewById(R.id.userImageViewId);
-        firstNameTextView = getView().findViewById(R.id.firstNameTextViewId);
-        lastNameTextView = getView().findViewById(R.id.lastNameTextViewId);
-        contactNumberTextView = getView().findViewById(R.id.contactNumberTextViewId);
+    public void init(View view) {
+        userImageView = view.findViewById(R.id.userImageViewId);
+        firstNameTextView = view.findViewById(R.id.firstNameTextViewId);
+        lastNameTextView = view.findViewById(R.id.lastNameTextViewId);
+        contactNumberTextView = view.findViewById(R.id.contactNumberTextViewId);
     }
 }
