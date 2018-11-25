@@ -47,7 +47,7 @@ public class ContactListAdapter extends ArrayAdapter {
         TextView contact_number = rowView.findViewById(R.id.contact_number);
         ImageView contact_image = rowView.findViewById(R.id.contact_image);
         contact_number.setText(String.valueOf(contact.getContact_number()));
-        String name = contact.getFirstName() + contact.getLastName();
+        String name = contact.getFirstName() + " " + contact.getLastName();
         contact_name.setText(name);
         contact_image.setImageResource(context.getResources().getIdentifier(contact.getImage(), "drawable", context.getPackageName()));
 

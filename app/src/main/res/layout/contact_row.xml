@@ -8,8 +8,7 @@
     <ImageView
         android:id="@+id/contact_image"
         android:layout_width="75sp"
-        android:layout_height="75sp"
-        android:background="@drawable/batman"/>
+        android:layout_height="75sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
