@@ -27,8 +27,13 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
         fragment.contactSelectedListener = this;
         FragmentTransaction transaction = manager.beginTransaction();
         configure(getResources().getConfiguration().orientation);
-        transaction.replace(R.id.contact_list_layout, fragment, "hello");
-        transaction.addToBackStack(null);
+        if (transaction.isEmpty())
+            transaction.add(R.id.contact_list_layout, fragment);
+        else {
+            transaction.replace(R.id.contact_list_layout, fragment);
+            transaction.addToBackStack(null);
+        }
+
         transaction.commit();
     }
 
