@@ -81,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
         FragmentTransaction transaction = manager.beginTransaction();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
             transaction.replace(R.id.contact_detail_layout, detailsFragment);
-        else transaction.replace(R.id.contact_list_layout, detailsFragment);
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+            transaction.replace(R.id.contact_list_layout, detailsFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
