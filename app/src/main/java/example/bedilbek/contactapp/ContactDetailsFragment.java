@@ -16,6 +16,7 @@ public class ContactDetailsFragment extends Fragment {
     TextView firstNameTextView;
     TextView lastNameTextView;
     TextView contactNumberTextView;
+    TextView idTextView;
     Contact contact;
     private static String CONTACT_BUNDLE_ARGUMENT = "contact";
 
@@ -51,6 +52,7 @@ public class ContactDetailsFragment extends Fragment {
         firstNameTextView.setText(contact.getFirstName());
         lastNameTextView.setText(contact.getLastName());
         contactNumberTextView.setText(String.valueOf(contact.getContact_number()));
+        idTextView.setText(contact.getId());
     }
 
     public void init(View view) {
@@ -58,5 +60,6 @@ public class ContactDetailsFragment extends Fragment {
         firstNameTextView = view.findViewById(R.id.firstNameTextViewId);
         lastNameTextView = view.findViewById(R.id.lastNameTextViewId);
         contactNumberTextView = view.findViewById(R.id.contactNumberTextViewId);
+        idTextView = view.findViewById(R.id.idTextViewId);
     }
 }

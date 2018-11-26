@@ -1,12 +1,15 @@
 package example.bedilbek.contactapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
     LinearLayout parent;
     LinearLayout menu;
     LinearLayout content;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,11 +81,20 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
     public void onObjectSelected(Contact contact) {
         ContactDetailsFragment detailsFragment = ContactDetailsFragment.constructor(contact);
         FragmentTransaction transaction = manager.beginTransaction();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            configure(getResources().getConfiguration().orientation);
             transaction.replace(R.id.contact_detail_layout, detailsFragment);
-        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-            transaction.replace(R.id.contact_list_layout, detailsFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            configure(getResources().getConfiguration().orientation);
+            Intent intent = new Intent(this, ContactDetailsActivity.class);
+            intent.putExtra("contact", (Parcelable) contact);
+            startActivity(intent);
+//            transaction.replace(R.id.contact_list_layout, detailsFragment);
+        }
+//        transaction.addToBackStack(null);
+//        transaction.commit();
     }
 }
